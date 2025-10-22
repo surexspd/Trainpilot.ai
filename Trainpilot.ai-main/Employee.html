@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trainpilot</title>
+  <link rel="stylesheet" href="./css/Employee.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-top">
+        <div class="logo">Trainpilot</div>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." />
+          <button>Go</button>
+        </div>
+        <nav>
+          <a href="General.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Help</a>
+          <a href="history.html">History</a>
+          <a href="">Employee Profile</a>
+          <button id="logout">Logout</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="slider_container">
+    <section class="slider">
+      <div class="slide one">
+        <img src="./img/flag.jpg" alt="Image 1">
+        <span class="caption">Jay Hind</span>
+      </div>
+      <div class="slide two">
+        <img src="./img/sidenightstation.jpg" alt="Image 2">
+        <span class="caption">Station View</span>
+      </div>
+      <div class="slide three">
+        <img src="./img/fogtrain.jpg" alt="Image 3">
+        <span class="caption">Weather</span>
+      </div>
+      <div class="slide three">
+        <img src="./img/stationnight.jpg" alt="Image 3">
+        <span class="caption">Station</span>
+      </div>
+    </section>
+  </section>
+
+  <main>
+    <section>
+      <div class="container">
+        <input type="text" placeholder="Enter Train Number.." class="number-input" />
+        <button class="container-btn">Check</button>
+        <div class="section">
+          <h2>Train Report</h2>
+          <p><span class="icon">🚆Train ID:</span></p>
+          <p><span class="icon">➡️Route:</span></p>
+          <p><span class="icon">🕕Arrival Time:</span></p>
+           <p><span class="icon">🕕Departure Time:</span></p>
+          <p><span class="icon">👤Passengers Percentage:</span></p>
+          <p><span class="icon">🚈Speed:</span></p>
+        </div>
+
+        <div class="section">
+          <h2>Status Legend</h2>
+          <p><span class="icon">🟢 On Time</span></p>
+          <p><span class="icon">🟡 Approaching</span></p>
+          <p><span class="icon">🔴 Delayed</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="arrival-info">
+      <h2>All Trains Arrival Timing for Station</h2>
+      <div class="arrival-big-space">
+        <ol>
+          <li>20807 Hirakud SF Express Arrival | Time - 7:15 AM</li>
+          <li>12281 New Delhi Duronto Express | Time - 7:35</li>
+          <li>22823 New Delhi Tejas Rajdhani Express | Time- 9:30</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <div class="popup-notification" id="popupNotification">
+    <p>Arrival and Departure Confirmation</p>
+  </div>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">Pilot</div>
+    <div class="chatbot-body">
+      <p>Hello! How can I help you today?</p>
+    </div>
+    <input type="text" class="chatbot-input" placeholder="Type your message...">
+    <button class="chatbot-send-btn">Send</button>
+  </div>
+
+  <script>
+    // Pop-up notification animation and show/hide
+    function showNotification(message) {
+      const popup = document.getElementById('popupNotification');
+      popup.textContent = message;
+      popup.style.transform = 'translateX(0)';
+      setTimeout(() => { popup.style.transform = 'translateX(-100%)'; }, 4000);
+    }
+
+    setTimeout(() => showNotification('22823 New Delhi Tejas Rajdhani Express arriving at platform 3'), 2000);
+
+    const sendBtn = document.querySelector('.chatbot-send-btn');
+    const input = document.querySelector('.chatbot-input');
+    const body = document.querySelector('.chatbot-body');
+
+    if (sendBtn) {
+      sendBtn.addEventListener('click', () => {
+        const msg = input.value.trim();
+        if (msg) {
+          const userMsg = document.createElement('p');
+          userMsg.textContent = 'You: ' + msg;
+          body.appendChild(userMsg);
+          input.value = '';
+          setTimeout(() => {
+            const botMsg = document.createElement('p');
+            botMsg.textContent = 'Pilot: I am still learning .... coming Soon...';
+            body.appendChild(botMsg);
+            body.scrollTop = body.scrollHeight;
+          }, 1000);
+        }
+      });
+    }
+  </script>
+
+  <script src="./js/Employee.js"></script>
+</body>
+</html>
