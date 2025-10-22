@@ -223,10 +223,12 @@ nav {
      padding: 10px 15px;
         border-radius: 10px;
     border-top: 1px solid #ddd;
+  
     padding: 10px;
     font-size: 14px;
     outline: none;
-    width: 100;
+    width: 100px;
+    display: flex;
 }
 
 .pnr-check-button {
@@ -243,7 +245,9 @@ nav {
     margin: 15px 20px;
     padding: 15px 20px;
     border-radius: 8px;
-}
+    display: flex;
+    width: auto;
+  }
 .map-placeholder, .status-placeholder, .updates-placeholder {
     background: #e0e0e0;
     padding: 60px;
@@ -253,7 +257,9 @@ nav {
     font-style: italic;
     font-size: 19px;
     margin: 20px auto;
-    width: 80%;
+    width: 100%;
+    display: flex;
+    
 }
 
 .pnr-status {
