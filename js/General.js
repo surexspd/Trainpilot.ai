@@ -31,21 +31,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const input = document.querySelector('.chatbot-input');
   const body = document.querySelector('.chatbot-body');
   if (sendBtn && input && body) {
-    sendBtn.addEventListener('click', () => {
+    async function sendMessage() {
       const msg = input.value.trim();
-      if (msg) {
-        const userMsg = document.createElement('p');
-        userMsg.textContent = 'You: ' + msg;
-        body.appendChild(userMsg);
-        input.value = '';
-        setTimeout(() => {
-          const botMsg = document.createElement('p');
-          botMsg.textContent = 'Pilot: This is a demo reply.';
-          body.appendChild(botMsg);
-          body.scrollTop = body.scrollHeight;
-        }, 600);
+      if (!msg) return;
+      const userMsg = document.createElement('p');
+      userMsg.textContent = 'You: ' + msg;
+      body.appendChild(userMsg);
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+
+      // Try calling local API endpoint
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg })
+        });
+        if (!res.ok) throw new Error('Network response was not ok');
+        const data = await res.json();
+        const botMsg = document.createElement('p');
+        botMsg.textContent = 'Pilot: ' + (data.reply || 'No reply');
+        body.appendChild(botMsg);
+        body.scrollTop = body.scrollHeight;
+      } catch (err) {
+        // Fallback local echo if server not available
+        const botMsg = document.createElement('p');
+        botMsg.textContent = 'Pilot (offline): ' + msg;
+        body.appendChild(botMsg);
+        body.scrollTop = body.scrollHeight;
       }
-    });
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
   }
 
   // Notification helper
